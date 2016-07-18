@@ -33,3 +33,9 @@ View GeoJSON features in geojson.io (requires [geojsonio-cli package](https://gi
 ```sh
 fq 'SELECT * FROM "Park Inventory"' -f geojson | geojsonio
 ```
+
+Fetch records matching a column value. Here we use double quotes on the query and backslash escape the table name.
+
+```sh
+fq "SELECT * FROM \"Fire Hydrant Inventory\" WHERE hydrant_type = 'Pillar / Aboveground'" -f geojson | geojsonio
+```

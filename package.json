@@ -1,0 +1,35 @@
+{
+  "name": "fulcrum-query-cli",
+  "version": "0.0.1",
+  "description": "Fulcrum query command line tool",
+  "main": "dist/index.js",
+  "bin": {
+    "fq": "./fq"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fulcrumapp/fq.git"
+  },
+  "scripts": {
+    "test": "npm run lint && node_modules/.bin/mocha ./test/setup.js test/test.js",
+    "prepublish": "npm run lint && npm run clean && npm run build",
+    "lint": "node_modules/.bin/eslint src",
+    "clean": "rm -rf dist"
+  },
+  "author": "Zac McCormick <zac.mccormick@gmail.com> (http://github.com/zhm)",
+  "license": "BSD",
+  "dependencies": {
+    "optimist": "^0.6.1",
+    "qs": "^6.0.1",
+    "request": "^2.67.0",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^4.1.6",
+    "babel-preset-es2015-node5": "^1.1.1",
+    "babel-preset-stage-3": "^6.3.13",
+    "eslint": "^1.10.3"
+  }
+}

@@ -3,19 +3,19 @@ var fs = require('fs');
 var path = require('path');
 var qs = require('qs');
 
-var argv = require('yargs').usage('Usage: $0 query')
-                           .alias('t', 'token')
-                           .describe('t', 'API Token')
-                           .alias('f', 'format')
-                           .describe('f', 'Format (csv|geojson|json|postgres)')
-                           .alias('h', 'host')
-                           .describe('h', 'API Host')
-                           .alias('v', 'verbose')
-                           .describe('v', 'Verbose')
-                           .alias('b', 'bare')
-                           .describe('b', 'Bare, no headers (csv only)')
-                           .argv;
+var opt = require('optimist').usage('Usage: $0 query')
+                             .alias('t', 'token')
+                             .describe('t', 'API Token')
+                             .alias('f', 'format')
+                             .describe('f', 'Format (csv|geojson|json|postgres)')
+                             .alias('h', 'host')
+                             .describe('h', 'API Host')
+                             .alias('v', 'verbose')
+                             .describe('v', 'Verbose')
+                             .alias('b', 'bare')
+                             .describe('b', 'Bare (no headers)');
 
+var argv = opt.argv;
 var token = argv.token;
 var query = argv._[0];
 

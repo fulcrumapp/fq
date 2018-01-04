@@ -3,19 +3,18 @@ var fs = require('fs');
 var path = require('path');
 var qs = require('qs');
 
-var opt = require('optimist').usage('Usage: $0 query')
-                             .alias('t', 'token')
-                             .describe('t', 'API Token')
-                             .alias('f', 'format')
-                             .describe('f', 'Format (csv|geojson|json|postgres)')
-                             .alias('h', 'host')
-                             .describe('h', 'API Host')
-                             .alias('v', 'verbose')
-                             .describe('v', 'Verbose')
-                             .alias('b', 'bare')
-                             .describe('b', 'Bare (no headers)');
-
-var argv = opt.argv;
+var argv = require('yargs').usage('Usage: $0 query')
+                           .alias('t', 'token')
+                           .describe('t', 'API Token')
+                           .alias('f', 'format')
+                           .describe('f', 'Format (csv|geojson|json|postgres)')
+                           .alias('h', 'host')
+                           .describe('h', 'API Host')
+                           .alias('v', 'verbose')
+                           .describe('v', 'Verbose')
+                           .alias('b', 'bare')
+                           .describe('b', 'Bare, no headers (csv only)')
+                           .argv;
 
 var token = argv.token;
 var query = argv._[0];
@@ -42,13 +41,14 @@ function execute() {
   if (query.length && token) {
     var opts = {
       url: url,
-      qs: {
-        token: token,
+      method: 'POST',
+      json: {
         q: query,
         format: argv.format || 'csv',
         headers: argv.bare == null
       },
       headers: {
+        'X-ApiToken': token,
         'User-Agent': 'fq-cli'
       }
     };

@@ -8,6 +8,8 @@ var opt = require('optimist').usage('Usage: $0 query')
                              .describe('t', 'API Token')
                              .alias('f', 'format')
                              .describe('f', 'Format (csv|geojson|json|postgres)')
+                             .alias('n', 'table_name')
+                             .describe('n', 'Postgres table name')
                              .alias('h', 'host')
                              .describe('h', 'API Host')
                              .alias('v', 'verbose')
@@ -53,6 +55,10 @@ function execute() {
       }
     };
 
+    if (argv.format === 'postgres' && argv.table_name) {
+      opts.json.table_name = argv.table_name;
+    }
+
     if (argv.verbose) {
       console.log(url + '?' + qs.stringify(opts.qs));
     }
@@ -79,4 +85,3 @@ if (process.stdin.isTTY && !argv._[0]) {
 } else {
   execute();
 }
-
